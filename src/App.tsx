@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Navigation } from './components/Navigation';
 import { Dashboard } from './components/Dashboard';
 import { MacrocycleSetup } from './components/MacrocycleSetup';
@@ -7,7 +7,6 @@ import { WorkoutLogger } from './components/WorkoutLogger';
 import { Analytics } from './components/Analytics';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { Macrocycle, Workout, TrainingProgram } from './types';
-import { trainingPrograms } from './data/programs';
 import { Plus, Play } from 'lucide-react';
 
 function App() {
@@ -97,8 +96,6 @@ function App() {
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, 10);
 
-  const completedWorkouts = workouts.filter(w => w.completed);
-
   return (
     <div className="min-h-screen bg-gray-50">
       <Navigation activeTab={activeTab} onTabChange={setActiveTab} />
@@ -109,7 +106,7 @@ function App() {
             <Dashboard
               macrocycle={macrocycle}
               recentWorkouts={recentWorkouts}
-              totalWorkouts={completedWorkouts.length}
+              onUpdateWorkout={handleSaveWorkout}
             />
             
             {!macrocycle && (
