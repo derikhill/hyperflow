@@ -8,7 +8,9 @@ interface AnalyticsProps {
 }
 
 export function Analytics({ workouts, macrocycle }: AnalyticsProps) {
+  console.log('Analytics workouts prop:', workouts);
   const completedWorkouts = workouts.filter(w => w.completed);
+  console.log('Completed workouts:', completedWorkouts);
   
   // Calculate weekly volume
   const getWeeklyVolume = () => {
@@ -102,6 +104,7 @@ export function Analytics({ workouts, macrocycle }: AnalyticsProps) {
   };
 
   const weeklyVolume = getWeeklyVolume();
+  console.log('Weekly volume:', weeklyVolume);
   const muscleGroupFrequency = getMuscleGroupFrequency();
   const progressMetrics = getProgressMetrics();
 
@@ -185,7 +188,7 @@ export function Analytics({ workouts, macrocycle }: AnalyticsProps) {
                     <div key={index} className="flex-1 flex flex-col items-center">
                       <div
                         className="w-full bg-blue-500 rounded-t-md transition-all hover:bg-blue-600"
-                        style={{ height: `${height}%` }}
+                        style={{ height: `${height}%`, minHeight: '8px' }}
                         title={`${data.week}: ${Math.round(data.volume / 1000)}k lbs`}
                       />
                       <p className="text-xs text-gray-500 mt-2">{data.week}</p>

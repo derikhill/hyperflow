@@ -1,16 +1,16 @@
-import React from 'react';
-import { Calendar, Target, TrendingUp, Dumbbell, Zap, Timer } from 'lucide-react';
+import React, { useState } from 'react';
+import { Calendar, Target, Dumbbell, Zap, Timer } from 'lucide-react';
 import { Macrocycle, Workout } from '../types';
 
 interface DashboardProps {
   macrocycle: Macrocycle | null;
   recentWorkouts: Workout[];
-  totalWorkouts: number;
+  onUpdateWorkout: (workout: Workout) => void;
 }
 
-export function Dashboard({ macrocycle, recentWorkouts, totalWorkouts }: DashboardProps) {
-  const currentMesocycle = macrocycle?.mesocycles[macrocycle.currentMesocycle];
-  const currentWeek = currentMesocycle?.weeks.find(w => w.week === macrocycle.currentWeek);
+export function Dashboard({ macrocycle, recentWorkouts, onUpdateWorkout }: DashboardProps) {
+  const currentMesocycle = macrocycle && macrocycle.currentMesocycle != null ? macrocycle.mesocycles[macrocycle.currentMesocycle] : undefined;
+  const currentWeek = currentMesocycle?.weeks.find(w => w.week === macrocycle?.currentWeek);
   
   const completedWorkoutsThisWeek = recentWorkouts.filter(w => {
     const workoutDate = new Date(w.date);
@@ -51,6 +51,27 @@ export function Dashboard({ macrocycle, recentWorkouts, totalWorkouts }: Dashboa
   };
 
   const intensityDisplay = currentWeek ? getIntensityZoneDisplay(currentWeek.intensityZone) : null;
+
+  const [selectedWorkout, setSelectedWorkout] = useState<Workout | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [editDate, setEditDate] = useState<string>("");
+
+  const openWorkoutModal = (workout: Workout) => {
+    setSelectedWorkout(workout);
+    setEditDate(workout.date);
+    setShowModal(true);
+  };
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedWorkout(null);
+    setEditDate("");
+  };
+  const handleSaveDate = () => {
+    if (selectedWorkout && editDate) {
+      onUpdateWorkout({ ...selectedWorkout, date: editDate });
+      closeModal();
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -177,10 +198,14 @@ export function Dashboard({ macrocycle, recentWorkouts, totalWorkouts }: Dashboa
           <h2 className="text-lg font-semibold mb-4">Recent Training Sessions</h2>
           <div className="space-y-3">
             {recentWorkouts.slice(0, 5).map((workout) => (
-              <div key={workout.id} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-b-0">
+              <button
+                key={workout.id}
+                className="flex items-center justify-between py-2 border-b border-gray-100 last:border-b-0 w-full text-left hover:bg-gray-50 focus:outline-none"
+                onClick={() => openWorkoutModal(workout)}
+              >
                 <div>
                   <p className="font-medium text-gray-700">{workout.name}</p>
-                  <p className="text-sm text-gray-500">{new Date(workout.date).toLocaleDateString()}</p>
+                  <p className="text-sm text-gray-500">{workout.date}</p>
                 </div>
                 <div className="flex items-center space-x-3">
                   {workout.volumeLoad && (
@@ -197,9 +222,70 @@ export function Dashboard({ macrocycle, recentWorkouts, totalWorkouts }: Dashboa
                     <span className="text-sm text-gray-500">{workout.duration}min</span>
                   )}
                 </div>
-              </div>
+              </button>
             ))}
           </div>
+          {/* Workout Log Modal */}
+          {showModal && selectedWorkout && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+              <div className="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 relative">
+                <button
+                  className="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-2xl font-bold"
+                  onClick={closeModal}
+                  aria-label="Close"
+                >
+                  &times;
+                </button>
+                <h3 className="text-xl font-semibold mb-2">{selectedWorkout.name}</h3>
+                <div className="flex items-center mb-4 space-x-2">
+                  <label htmlFor="edit-date" className="text-sm text-gray-500">Date:</label>
+                  <input
+                    id="edit-date"
+                    type="date"
+                    className="border rounded px-2 py-1 text-sm"
+                    value={editDate}
+                    onChange={e => setEditDate(e.target.value)}
+                  />
+                  <button
+                    className="ml-2 px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700"
+                    onClick={handleSaveDate}
+                  >
+                    Save
+                  </button>
+                </div>
+                <div className="space-y-4">
+                  {selectedWorkout.exercises.map((exercise, idx) => (
+                    <div key={exercise.exerciseId + idx} className="border-b pb-2 mb-2">
+                      <p className="font-medium text-gray-800">{exercise.exerciseId}</p>
+                      {exercise.notes && <p className="text-xs text-gray-500 mb-1">Notes: {exercise.notes}</p>}
+                      <table className="w-full text-xs text-left mt-1">
+                        <thead>
+                          <tr className="text-gray-500">
+                            <th className="pr-2">Set</th>
+                            <th className="pr-2">Reps</th>
+                            <th className="pr-2">Weight</th>
+                            <th className="pr-2">RPE</th>
+                            <th className="pr-2">Done</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {exercise.sets.map((set, setIdx) => (
+                            <tr key={setIdx}>
+                              <td className="pr-2">{setIdx + 1}</td>
+                              <td className="pr-2">{set.reps}</td>
+                              <td className="pr-2">{set.weight}</td>
+                              <td className="pr-2">{set.rpe ?? '-'}</td>
+                              <td className="pr-2">{set.completed ? '✔️' : ''}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
