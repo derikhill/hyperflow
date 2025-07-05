@@ -103,9 +103,10 @@ export const trainingPrograms: TrainingProgram[] = [
   },
   {
     id: 'classic-physique-4day',
-    name: 'Classic Physique Hypertrophy',
+    name: 'Classic Physique Bro Split (4-on, 1-off)',
     type: 'bro_split',
-    frequency: 4,
+    // 4-on, 1-off rolling schedule: train 4 days in a row, then rest 1 day, repeat. This means 5-6 days/week depending on calendar. Frequency is set to 0 and not used for this split.
+    frequency: 0,
     primaryGoal: 'hypertrophy',
     compatibleMacrocycles: ['pure_hypertrophy', 'body_recomposition'],
     sessions: [

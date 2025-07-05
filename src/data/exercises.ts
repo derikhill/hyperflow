@@ -65,6 +65,24 @@ export const exerciseDatabase: Exercise[] = [
     equipment: 'Dumbbells',
     instructions: 'Lie on bench, hold dumbbells above chest, lower in wide arc, squeeze chest to return.'
   },
+  {
+    id: 'push-ups',
+    name: 'Push-ups',
+    category: 'Chest',
+    primaryMuscles: ['Chest'],
+    secondaryMuscles: ['Shoulders', 'Triceps'],
+    equipment: 'Bodyweight',
+    instructions: 'Start in plank position, lower chest to floor, press back up.'
+  },
+  {
+    id: 'chest-dips',
+    name: 'Chest Dips',
+    category: 'Chest',
+    primaryMuscles: ['Chest', 'Triceps'],
+    secondaryMuscles: ['Shoulders'],
+    equipment: 'Dip Bars',
+    instructions: 'Support body on bars, lean forward, lower until elbows at 90°, press up.'
+  },
   
   // Back
   {
@@ -130,6 +148,24 @@ export const exerciseDatabase: Exercise[] = [
     equipment: 'T-Bar',
     instructions: 'Straddle T-bar, bend at hips, row weight to chest with neutral grip.'
   },
+  {
+    id: 'chin-ups',
+    name: 'Chin-ups',
+    category: 'Back',
+    primaryMuscles: ['Back', 'Biceps'],
+    secondaryMuscles: ['Forearms'],
+    equipment: 'Pull-up Bar',
+    instructions: 'Hang with underhand grip, pull chin above bar, lower with control.'
+  },
+  {
+    id: 'single-arm-dumbbell-row',
+    name: 'Single-Arm Dumbbell Row',
+    category: 'Back',
+    primaryMuscles: ['Back'],
+    secondaryMuscles: ['Biceps', 'Rear Delts'],
+    equipment: 'Dumbbell',
+    instructions: 'Knee and hand on bench, row dumbbell to hip, squeeze back.'
+  },
 
   // Shoulders
   {
@@ -194,6 +230,24 @@ export const exerciseDatabase: Exercise[] = [
     secondaryMuscles: ['Biceps'],
     equipment: 'Barbell',
     instructions: 'Hold bar with narrow grip, pull up to chest level keeping elbows high.'
+  },
+  {
+    id: 'arnold-press',
+    name: 'Arnold Press',
+    category: 'Shoulders',
+    primaryMuscles: ['Shoulders'],
+    secondaryMuscles: ['Triceps'],
+    equipment: 'Dumbbells',
+    instructions: 'Start with palms facing you, press overhead while rotating palms out.'
+  },
+  {
+    id: 'face-pulls',
+    name: 'Face Pulls',
+    category: 'Shoulders',
+    primaryMuscles: ['Rear Delts', 'Shoulders'],
+    secondaryMuscles: ['Upper Back'],
+    equipment: 'Cable Machine',
+    instructions: 'Pull rope attachment to face, keeping elbows high and squeezing rear delts.'
   },
 
   // Legs
@@ -269,6 +323,33 @@ export const exerciseDatabase: Exercise[] = [
     equipment: 'Seated Calf Machine',
     instructions: 'Sit with weight on thighs, rise up on toes, lower with control.'
   },
+  {
+    id: 'split-squat',
+    name: 'Split Squat',
+    category: 'Legs',
+    primaryMuscles: ['Quadriceps'],
+    secondaryMuscles: [],
+    equipment: 'Dumbbell or barbell',
+    instructions: 'Stand with one leg forward then lower into a lunch position placing emphasis on the forward leg. Stand back up to contract muscles.'
+  },
+  {
+    id: 'leg-press-calf-raise',
+    name: 'Leg Press Calf Raise',
+    category: 'Legs',
+    primaryMuscles: ['Calves'],
+    secondaryMuscles: [],
+    equipment: 'Leg Press Machine',
+    instructions: 'On leg press, push with toes to raise weight, lower with control.'
+  },
+  {
+    id: 'bulgarian-split-squat',
+    name: 'Bulgarian Split Squat',
+    category: 'Legs',
+    primaryMuscles: ['Quadriceps', 'Glutes'],
+    secondaryMuscles: ['Hamstrings'],
+    equipment: 'Dumbbells',
+    instructions: 'Back foot on bench, lower rear knee to floor, drive up with front leg.'
+  },
 
   // Arms
   {
@@ -343,6 +424,24 @@ export const exerciseDatabase: Exercise[] = [
     equipment: 'Cable Machine',
     instructions: 'Stand at cable machine, push rope or bar down by extending elbows.'
   },
+  {
+    id: 'skullcrushers',
+    name: 'Skullcrushers',
+    category: 'Arms',
+    primaryMuscles: ['Triceps'],
+    secondaryMuscles: [],
+    equipment: 'EZ Bar',
+    instructions: 'Lie on bench, lower bar to forehead, extend arms to press up.'
+  },
+  {
+    id: 'concentration-curls',
+    name: 'Concentration Curls',
+    category: 'Arms',
+    primaryMuscles: ['Biceps'],
+    secondaryMuscles: [],
+    equipment: 'Dumbbell',
+    instructions: 'Sit, elbow on thigh, curl dumbbell up, squeeze biceps.'
+  },
 
   // Core/Abs
   {
@@ -398,5 +497,23 @@ export const exerciseDatabase: Exercise[] = [
     secondaryMuscles: [],
     equipment: 'Bodyweight',
     instructions: 'Lie on back, raise legs up by contracting lower abs, lower with control.'
+  },
+  {
+    id: 'bicycle-crunches',
+    name: 'Bicycle Crunches',
+    category: 'Core',
+    primaryMuscles: ['Core'],
+    secondaryMuscles: [],
+    equipment: 'Bodyweight',
+    instructions: 'Lie on back, alternate elbow to opposite knee in a pedaling motion.'
+  },
+  {
+    id: 'mountain-climbers',
+    name: 'Mountain Climbers',
+    category: 'Core',
+    primaryMuscles: ['Core'],
+    secondaryMuscles: ['Shoulders'],
+    equipment: 'Bodyweight',
+    instructions: 'Start in plank, alternate driving knees toward chest quickly.'
   }
 ];

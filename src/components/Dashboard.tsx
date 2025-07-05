@@ -253,7 +253,7 @@ export function Dashboard({ macrocycle, recentWorkouts, onUpdateWorkout }: Dashb
                     Save
                   </button>
                 </div>
-                <div className="space-y-4">
+                <div className="space-y-4 max-h-96 overflow-y-auto">
                   {selectedWorkout.exercises.map((exercise, idx) => (
                     <div key={exercise.exerciseId + idx} className="border-b pb-2 mb-2">
                       <p className="font-medium text-gray-800">{exercise.exerciseId}</p>

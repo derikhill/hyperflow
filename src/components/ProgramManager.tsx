@@ -298,11 +298,15 @@ export function ProgramManager({ activeProgram, onSelectProgram, macrocycle }: P
             <div className="space-y-2 mb-4">
               <div className="flex items-center justify-between text-sm">
                 <span className="text-gray-500">Training Days:</span>
-                <span className="font-medium">{program.frequency} per week</span>
+                <span className="font-medium">
+                  {program.id === 'classic-physique-4day' ? '4-on, 1-off (rolling)' : `${program.frequency} per week`}
+                </span>
               </div>
               <div className="flex items-center justify-between text-sm">
                 <span className="text-gray-500">Difficulty:</span>
-                <span className="font-medium">{getProgramFrequencyText(program.frequency)}</span>
+                <span className="font-medium">
+                  {program.id === 'classic-physique-4day' ? 'Intermediate/Advanced (rolling split)' : getProgramFrequencyText(program.frequency)}
+                </span>
               </div>
               <div className="flex items-center justify-between text-sm">
                 <span className="text-gray-500">Sessions:</span>
@@ -366,7 +370,9 @@ export function ProgramManager({ activeProgram, onSelectProgram, macrocycle }: P
                   <span className="font-medium">Frequency</span>
                 </div>
                 <p className="text-2xl font-bold text-gray-900">{selectedProgram.frequency}</p>
-                <p className="text-sm text-gray-500">days per week</p>
+                <p className="text-sm text-gray-500">
+                  {selectedProgram.id === 'classic-physique-4day' ? '4-on, 1-off (rolling)' : 'days per week'}
+                </p>
               </div>
               <div className="bg-gray-50 rounded-lg p-4">
                 <div className="flex items-center space-x-2 mb-2">
